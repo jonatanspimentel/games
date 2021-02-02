@@ -1,0 +1,26 @@
+.card
+{
+    width: 100px;
+    height: 100px;
+    border: 2px solid #000000;
+    float: left;
+    margin: 10px;
+    padding: 10px;
+    position: relative;
+    text-align: center;
+}
+
+.card:active{
+    border: 2px solid rgb(247, 10, 10);
+}
+
+.imgHeigth{
+    height: 100px;
+}
+
+body {
+    padding-top: 50px;
+    padding-bottom: 100px;
+    padding-left: 100px;
+    padding-right: 100px;
+}
