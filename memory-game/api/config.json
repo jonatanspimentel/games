@@ -1,0 +1,6 @@
+{
+    "security": { 
+        "algorithm": "aes-192-cbc",
+        "key" : "@memory-game" 
+    }
+}

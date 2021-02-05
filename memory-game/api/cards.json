@@ -1,0 +1,29 @@
+{
+     "cards": [
+        {"key":"1203d91d9d11fafa807f75d48270049b","name":"growlithe"},
+        {"key":"a845840324de0186875ce68374a48022","name":"growlithe"},
+        {"key":"a509422d1b0ed690ef022472c6cbe957","name":"bulbassaur"},
+        {"key":"77128d8158766e6bb81ca707b2f68d21","name":"chikorita"},
+        {"key":"7b2a5a55c9faa5b467e0fedbbd05aa3a","name":"charmander"},
+        {"key":"97b55872035f553868ee518c0273a7c1","name":"mankey"},
+        {"key":"cee0f2d66f72f70347f37871063dd884","name":"wobbuffet"},
+        {"key":"3e4866bb89d671bf92793c6c95d26604","name":"squirtle"},
+        {"key":"0fbf0b5f6ff104f2483cc344da6303de","name":"wobbuffet"},
+        {"key":"5a5280cfe9bf3c1445cda6a894b1bd32","name":"pikachu"},
+        {"key":"d51bd52874ff6fd1087221d0d8e2cfb6","name":"squirtle"},
+        {"key":"362befefde4e3ec84305aae1109a0f7b","name":"psyduck"},
+        {"key":"b6b5fecd5a6a39404adfbc09bee87644","name":"charmander"},
+        {"key":"5eae2e0c75ecefb9ed3b5e94277669c9","name":"chikorita"},
+        {"key":"141f5404ae1aa8b6f6574891e263728b","name":"meowth"},
+        {"key":"5a5db260eebf68459ae62a2cf4ecf60d","name":"clefairy"},
+        {"key":"d78565b48b4ca3eaccfdaa0c912cb969","name":"clefairy"},
+        {"key":"1de99082d3efadd12805d8684d21be1f","name":"bulbassaur"},
+        {"key":"f228b93f797331724e965cc14e2cbec1","name":"mankey"},
+        {"key":"94c327077f910f15e597fdfcefd6e866","name":"pikachu"},
+        {"key":"3064f99cb4081db73d8550f0d86664a2","name":"jigglypuff"},
+        {"key":"d9cf7d275f415814051797c613b90fe6","name":"meowth"},
+        {"key":"5ca20c17004d3da2195fe4481fc45ace","name":"jigglypuff"},
+        {"key":"fcf6abd24dc944f42d3618d6e37f3d7c","name":"psyduck"}
+    ]
+}
+
