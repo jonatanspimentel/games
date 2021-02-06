@@ -8,6 +8,7 @@ var matchedCards = [];
 
 function HandleClick() {
   if (!PreValidation(this)) return;
+  
   TurnCard(this);
 
   if (firstCardElement === undefined) {
@@ -16,7 +17,7 @@ function HandleClick() {
     secondCardElement = this;
 
     if (!ValidationCompareCards()) return;
-    setTimeout(function () { CompareCards(); }, 800);
+      setTimeout(function () { CompareCards(); }, 800);
   }
 };
 
@@ -26,7 +27,9 @@ function HideCards() {
 }
 
 function PreValidation(cardElement) {
-  if (attempts === 0 || matchedCards.includes(cardElement.getAttribute("value"))) {
+  if (attempts === 0 || 
+      matchedCards.includes(cardElement.getAttribute("value")) || 
+      (firstCardElement && secondCardElement)) {
     return false;
   }
   return true;
@@ -70,7 +73,7 @@ function NewGame() {
 }
 
 async function load(){
-  const res = await fetch("http://localhost:3000/").then((data) => data.json())
+  const res = await fetch("http://localhost:3000/cards").then((data) => data.json())
   res.map(card => addElement(card.key))
 
   var cardsElements = document.querySelectorAll('#cards .card');
@@ -79,28 +82,31 @@ async function load(){
     card.addEventListener('click', HandleClick, false);
   });
 
+  attempts = (res.length / 4) + 2;
+
+  SetAttempts();
+  SetPontuation();
 }
 
 async function TurnCard(cardElement) {
   let key = cardElement.getAttribute("value");
-  let res = await fetch(`http://localhost:3000?card=${key}`).then((data) => data);
+  let res = await fetch(`http://localhost:3000/cards/${key}`).then((data) => data);
 
   if (res.ok) {
-    let value = await res.json();
-    cardElement.children[0].setAttribute( "src", `img\\${value}.png` );
+    let card = await res.json();
+    cardElement.children[0].setAttribute( "src", `img\\${card.name}.png` );
   }
-
 }
 
 async function CompareCards(){
   let firstcard = firstCardElement.getAttribute("value");
   let secondcard = secondCardElement.getAttribute("value");
-  let res = await fetch(`http://localhost:3000?firstcard=${firstcard}&secondcard=${secondcard}`).then((data) => data);
+  let res = await fetch(`http://localhost:3000/cards/compare/${firstcard}/${secondcard}`).then((data) => data);
 
   if (res.ok) {
     let value = await res.json();
 
-    if (value == true){
+    if (value === true){
       score++;
       matchedCards.push(firstcard);
       matchedCards.push(secondcard);
@@ -115,11 +121,6 @@ async function CompareCards(){
   }
 }
 
-attempts = 8;
-
-SetAttempts();
-SetPontuation();
-
 function addElement(key){
   let card = document.createElement("div");
   card.setAttribute("class", "card");
@@ -131,9 +132,6 @@ function addElement(key){
 
   card.appendChild(img);
   document.getElementById("cards").appendChild(card);
-
 }
 
 load()
-
-
