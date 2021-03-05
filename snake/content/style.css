@@ -1,0 +1,22 @@
+.snk {
+   background-color: rgba(12, 73, 12, 0.89); 
+}
+
+.mse {
+    background-color: rgba(41, 23, 3, 0.87);
+}
+
+.dif {
+    background-color: rgba(237, 245, 225, 0.945);
+}
+
+.row {
+    width: 480px;
+    height: 12px;
+}
+
+.row div {
+    float: left;
+    width: 12px;
+    height: 12px;
+}
