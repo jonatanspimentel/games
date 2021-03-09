@@ -10,7 +10,7 @@ const config = {
         baixo: 40,
         P: 80
     },
-    velocidadeMsMaxima: 20
+    velocidadeMsMaxima: 80
 };
 
 const controle = {
@@ -21,7 +21,6 @@ const controle = {
 
 const atributosVisuais = {
     classe: {
-        bloco: "bloco",
         mouse: "mouse",
         snake: "snake", 
     }
@@ -29,7 +28,7 @@ const atributosVisuais = {
 
 var pontuacao = 0;
 var crescimentoPendente = false;
-var velocidadeMs = 100;
+var velocidadeMs = 350;
 var rato = [];
 var direcaoAtual = config.tecla.baixo;
 
@@ -44,11 +43,11 @@ class Snake {
 
     mover() {
 
-        destruirContainer();
+        destruirSnake();
 
-        let last = this.arrayPosition[this.arrayPosition.length - 1];
-        linha = 0;
-        coluna = 0;
+        var last = this.arrayPosition[this.arrayPosition.length - 1];
+        let linha = 0;
+        let coluna = 0;
         
         if (direcaoAtual === config.tecla.baixo) {
             linha = last[0] + 1;
@@ -71,7 +70,7 @@ class Snake {
         }
 
         controle.proximoMovimento.push([linha, coluna]);
-
+        
         this.crescer(linha, coluna);
         this.capturarORato(linha, coluna);
         this.atualizarPercurso();
@@ -116,7 +115,7 @@ const snake = new Snake();
 function criarNovoRato() {
     
     if (rato.length > 0)
-        config.area[rato[0]][rato[1]] = "";
+        removerClassePorId(`l${rato[0]}c${rato[1]}`, atributosVisuais.classe.mouse);
 
     linha = randomNumber();
     coluna = randomNumber();
@@ -145,43 +144,49 @@ function construirArea() {
     for(let i = 0; i < config.size; i++) {
         config.area[i] = new Array(config.size);
     }
+
+    for(let linha = 0; linha < config.size; linha++) {
+        for(let coluna = 0; coluna < config.size; coluna++)
+            container.appendChild(novoBloco(linha, coluna));
+    }
 }
 
 function construirContainer(){
 
-    for(let linha = 0; linha < config.size; linha++) {
+    //adicionar mouse
+    adicionarClassePorId(`l${rato[0]}c${rato[1]}`, atributosVisuais.classe.mouse);
 
-        for(let coluna = 0; coluna < config.size; coluna++)
-            container.appendChild(newCell(linha, coluna));
-    }
+    //adicionar snake
+    snake.arrayPosition.forEach(function(s) {
+        adicionarClassePorId(`l${s[0]}c${s[1]}`, atributosVisuais.classe.snake);
+    });
 }
 
-function destruirContainer() {
-    let container = document.getElementById("container");
-    container.innerHTML = "";
+function destruirSnake() {
+    //apagar os elementos de snake
+    snake.arrayPosition.forEach(function(s) {
+        removerClassePorId(`l${s[0]}c${s[1]}`, atributosVisuais.classe.snake);
+    });
 }
 
-function newCell(linha, coluna) {
+function removerClassePorId(id, classe) {
+    var element = document.getElementById(id);
+    element.classList.remove(classe);
+}
+
+function adicionarClassePorId(id, classe) {
+    var element = document.getElementById(id);
+    element.classList.add(classe);
+}
+
+function novoBloco(linha, coluna) {
     
     let cell = document.createElement("div");
-    classValue();
+    addAttribute(cell, "id", `l${linha}c${coluna}`);
     return cell;
 
-    function classValue() {
-    
-        for(let i = 0; i < snake.arrayPosition.length; i ++) {
-            
-            if(snake.arrayPosition[i][0] == linha && snake.arrayPosition[i][1] == coluna){
-                cell.setAttribute("class", atributosVisuais.classe.snake);
-                break;
-            }
-
-            if(rato[0] == linha && rato[1] == coluna){
-                cell.setAttribute("class", atributosVisuais.classe.mouse);
-                break;
-            }
-        
-        }
+    function addAttribute(element, attr, value) {
+        element.setAttribute(attr, value);
     }
 }
 
