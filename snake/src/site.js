@@ -2,24 +2,36 @@
 const config = {
     area: [],
     size: 40,
-    direcao: {
+    tecla: {
+        esc: 27,
         esquerda: 37,
         cima: 38,
         direita: 39,
-        baixo: 40
+        baixo: 40,
+        P: 80
     },
     velocidadeMsMaxima: 20
 };
 
 const controle = {
-    proximoMovimento: []
+    proximoMovimento: [],
+    fimDeJogo: false,
+    pause: false
+}
+
+const atributosVisuais = {
+    classe: {
+        bloco: "bloco",
+        mouse: "mouse",
+        snake: "snake", 
+    }
 }
 
 var pontuacao = 0;
-var crescer = false;
+var crescimentoPendente = false;
 var velocidadeMs = 100;
 var rato = [];
-var direcaoAtual = config.direcao.baixo;
+var direcaoAtual = config.tecla.baixo;
 
 class Snake {
     
@@ -38,29 +50,29 @@ class Snake {
         linha = 0;
         coluna = 0;
         
-        if (direcaoAtual === config.direcao.baixo) {
+        if (direcaoAtual === config.tecla.baixo) {
             linha = last[0] + 1;
             coluna = last[1];
         }
 
-        if (direcaoAtual === config.direcao.esquerda) {
+        if (direcaoAtual === config.tecla.esquerda) {
             linha = last[0];
             coluna = last[1] - 1;
         }
 
-        if (direcaoAtual === config.direcao.direita) {
+        if (direcaoAtual === config.tecla.direita) {
             linha = last[0];
             coluna = last[1] + 1;
         }
 
-        if (direcaoAtual === config.direcao.cima) {
+        if (direcaoAtual === config.tecla.cima) {
             linha = last[0] - 1;
             coluna = last[1];
         }
 
         controle.proximoMovimento.push([linha, coluna]);
 
-        this.crescer();
+        this.crescer(linha, coluna);
         this.capturarORato(linha, coluna);
         this.atualizarPercurso();
 
@@ -70,21 +82,21 @@ class Snake {
 
     capturarORato(linha, coluna) { 
 
-        if (linha == rato[0] && coluna == rato[1]){
+        if (linha == rato[0] && coluna == rato[1]) {
             
-            crescer = true;
+            crescimentoPendente = true;
 
             pontuar();
-            novoRato();
+            criarNovoRato();
             this.aumentarVelocidade();
             
         }
     }
 
     crescer(linha, coluna) {
-        if (crescer && !(snake.arrayPosition.includes([linha, coluna]))) {
+        if (crescimentoPendente && !(snake.arrayPosition.includes([linha, coluna]))) {
             snake.arrayPosition.push([linha, coluna])
-            crescer = false;
+            crescimentoPendente = false;
         }
     }
 
@@ -101,7 +113,7 @@ class Snake {
 
 const snake = new Snake();
 
-function novoRato() {
+function criarNovoRato() {
     
     if (rato.length > 0)
         config.area[rato[0]][rato[1]] = "";
@@ -110,7 +122,7 @@ function novoRato() {
     coluna = randomNumber();
     
     rato = [linha, coluna];
-    config.area[linha][coluna] = "mse";
+    config.area[linha][coluna] = atributosVisuais.classe.mouse;
 
     function randomNumber(){
         return Math.floor(Math.random() * config.size);
@@ -119,39 +131,28 @@ function novoRato() {
 
 function pontuar() {
     pontuacao++;
-    let pontuacaoElement = document.getElementsByTagName("p");
-    pontuacaoElement.innerHTML = pontuacao;
+    let pontuacaoElement = document.getElementsByTagName("p")[0];
+    pontuacaoElement.innerHTML = `Pontuação: ${pontuacao}`;
 }
 
 construirArea();
-novoRato();
+criarNovoRato();
 
 //#region Elements
 
 function construirArea() { 
     
     for(let i = 0; i < config.size; i++) {
-
         config.area[i] = new Array(config.size);
-
-        for(let j = 0; j < config.size; j++) {
-            if((i + j + 1) % 2 == 0)
-                config.area[i][j] = "dif";
-        }
     }
 }
 
 function construirContainer(){
 
-    for(let linha = 0; linha < config.area.length; linha++) {
+    for(let linha = 0; linha < config.size; linha++) {
 
-        let line = newRow();
-        let row = config.area[linha];
-
-        for(let coluna = 0; coluna < row.length; coluna++)
-            line.appendChild(newCell(linha, coluna));
-
-        container.appendChild(line);
+        for(let coluna = 0; coluna < config.size; coluna++)
+            container.appendChild(newCell(linha, coluna));
     }
 }
 
@@ -160,34 +161,27 @@ function destruirContainer() {
     container.innerHTML = "";
 }
 
-function newRow() {
-    let row = document.createElement("div");
-    row.setAttribute("class", "row");
-    return row;
-}
-
 function newCell(linha, coluna) {
     
     let cell = document.createElement("div");
-    cell.setAttribute("class", classValue());
+    classValue();
     return cell;
 
     function classValue() {
     
-        let result = "";
-
         for(let i = 0; i < snake.arrayPosition.length; i ++) {
             
             if(snake.arrayPosition[i][0] == linha && snake.arrayPosition[i][1] == coluna){
-                result = "snk"; 
+                cell.setAttribute("class", atributosVisuais.classe.snake);
                 break;
             }
-            else { 
-                result = config.area[linha][coluna];
-            }
-        }
 
-        return result;
+            if(rato[0] == linha && rato[1] == coluna){
+                cell.setAttribute("class", atributosVisuais.classe.mouse);
+                break;
+            }
+        
+        }
     }
 }
 
@@ -199,25 +193,35 @@ document.onkeydown = function (e) {
     
     switch(e.which) {
 
-        case config.direcao.cima:
-            if(direcaoAtual === config.direcao.esquerda || direcaoAtual === config.direcao.direita)
-                direcaoAtual = config.direcao.cima;
+        case config.tecla.cima:
+            if(direcaoAtual === config.tecla.esquerda || direcaoAtual === config.tecla.direita)
+                direcaoAtual = config.tecla.cima;
             break;
 
-        case config.direcao.baixo:
-            if(direcaoAtual === config.direcao.esquerda || direcaoAtual === config.direcao.direita)
-                direcaoAtual = config.direcao.baixo;
+        case config.tecla.baixo:
+            if(direcaoAtual === config.tecla.esquerda || direcaoAtual === config.tecla.direita)
+                direcaoAtual = config.tecla.baixo;
             break;
 
-        case config.direcao.esquerda:
-            if(direcaoAtual === config.direcao.cima || direcaoAtual === config.direcao.baixo)
-                direcaoAtual = config.direcao.esquerda;
+        case config.tecla.esquerda:
+            if(direcaoAtual === config.tecla.cima || direcaoAtual === config.tecla.baixo)
+                direcaoAtual = config.tecla.esquerda;
             break;
 
-        case config.direcao.direita:
-            if(direcaoAtual === config.direcao.cima || direcaoAtual === config.direcao.baixo)
-                direcaoAtual = config.direcao.direita;
+        case config.tecla.direita:
+            if(direcaoAtual === config.tecla.cima || direcaoAtual === config.tecla.baixo)
+                direcaoAtual = config.tecla.direita;
             break;
+
+        case config.tecla.P:
+            if (!controle.fimDeJogo)
+                controle.pause = !controle.pause;
+            break
+
+        case config.tecla.esc:
+            controle.fimDeJogo = true;
+            break
+        
     }
 };
 
@@ -228,9 +232,13 @@ function sleep(ms) {
 }
   
 async function infinite() {
-    while(true) {
+
+    while(!controle.fimDeJogo) {
+        
         await sleep(velocidadeMs);
-        snake.mover(direcaoAtual);
+        
+        if (!controle.pause)
+            snake.mover(direcaoAtual);
     }
 }
 
