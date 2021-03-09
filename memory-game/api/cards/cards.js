@@ -1,26 +1,34 @@
 const express = require('express');
 const app = express();
+const fs = require('fs');
+const path = require('path');
+//const data = require('./cards.json');
 
-const data = require('./cards.json')
+const { v4: uuidv4 } = require('uuid');
+uuidv4(); 
 
-app.get("/cards",  function(req, res) {
+app.get("/cards", (req, res) => {
 
+  let data = readFiles();
+  console.log(data);
   res.writeHead(200, {'Access-Control-Allow-Origin' : '*'})
 
   let listCards = []
   
-  while(listCards.length < data.cards.length) {
-    let index = Math.floor(Math.random() * data.cards.length);
+  //const data = require('./cards.json');
   
-    if (!listCards.find(c => c.key === data.cards[index].key))
-      listCards.push(data.cards[index])
+  while(listCards.length < data.length) {
+    let index = Math.floor(Math.random() * data.length);
+
+    if (!listCards.includes(c => c.key === data[index].key))
+      listCards.push(data[index].key)
   }
   
   res.end(JSON.stringify(listCards))
+  
 });
 
-app.get("/cards/:key",  function(req, res) {
-
+app.get("/cards/:key", (req, res) => {
   res.writeHead(200, {'Access-Control-Allow-Origin' : '*'})
 
   let { key } = req.params;
@@ -31,8 +39,7 @@ app.get("/cards/:key",  function(req, res) {
   res.end(JSON.stringify(card));
 });
 
-app.get("/cards/compare/:fst/:snd",  function(req, res) {
-
+app.get("/cards/compare/:fst/:snd", (req, res) => {
   res.writeHead(200, {'Access-Control-Allow-Origin' : '*'})
 
   let { fst, snd } = req.params;
@@ -43,13 +50,39 @@ app.get("/cards/compare/:fst/:snd",  function(req, res) {
   if (!firstCard || !secondCard) return res.status(204).json();
   
   return res.end(JSON.stringify(firstCard.name == secondCard.name));
-  
 });
 
-app.listen(3000, function() {
-  console.log("Express API is reunning");
+app.listen(3000, () => {
+  console.log("Express API is running");
 });
 
 function findCard(key) {
-  return data.cards.find(c => c.key === key)
+  return data.find(c => c.key === key)
+}
+
+function readFiles() {
+
+  const arrayFiles = [];
+  let dir = path.join('C:\\Git\\games\\memory-game\\public\\img\\cards');
+
+  fs.readdirSync(dir, (err, files) => {
+    if (err) 
+      return console.log('Unable to scan directory: ' + err);
+
+    files.forEach(file => { 
+      let c = { 
+        key: uuidv4(), 
+        name: path.basename(file, path.extname(file)) 
+      }
+      arrayFiles.push(c);
+    });
+  
+    fs.writeFileSync(path.join(__dirname, "cards.json"), JSON.stringify(arrayFiles), err => { 
+      if (err) console.log('Error on write file .json: ' + err);   
+    });
+
+  });
+
+  return arrayFiles;
+
 }

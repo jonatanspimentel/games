@@ -74,7 +74,7 @@ function NewGame() {
 
 async function load(){
   const res = await fetch("http://localhost:3000/cards").then((data) => data.json())
-  res.map(card => addElement(card.key))
+  res.map(card => addElement(card))
 
   var cardsElements = document.querySelectorAll('#cards .card');
 
