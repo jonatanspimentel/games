@@ -143,11 +143,10 @@ class Snake {
 
         controle.proximoMovimento.push([linha, coluna]);
         
-        this.crescer(linha, coluna);
-        this.capturarAlvo(linha, coluna);
-        reposicionarSnake();
+        this.reposicionarSnake(last[0], last[1]);
         this.atualizarPercurso(linha, coluna);
-
+        this.capturarAlvo(linha, coluna);
+        
         construirContainer();
 
     }
@@ -165,11 +164,15 @@ class Snake {
         }
     }
 
-    crescer(linha, coluna) {
-        if (crescimentoPendente && !(snake.arrayPosition.includes([linha, coluna]))) {
+    reposicionarSnake(linha, coluna) {
+
+        if (crescimentoPendente && controle.alvoCapturado[0] === linha && controle.alvoCapturado[1] == coluna) {
             snake.arrayPosition.push([linha, coluna])
+            controle.alvoCapturado = [];
             crescimentoPendente = false;
         }
+
+        removerClassePorId(`l${snake.arrayPosition[0][0]}c${snake.arrayPosition[0][1]}`, atributosVisuais.classe.snake);
     }
 
     atualizarPercurso() {
@@ -233,17 +236,6 @@ function construirContainer(){
     snake.arrayPosition.forEach(function(s) {
         adicionarClassePorId(`l${s[0]}c${s[1]}`, atributosVisuais.classe.snake);
     });
-}
-
-function reposicionarSnake(linha, coluna) {
-
-    removerClassePorId(`l${snake.arrayPosition[0][0]}c${snake.arrayPosition[0][1]}`, atributosVisuais.classe.snake);
-
-    if (crescimentoPendente && controle.alvoCapturado[0] === linha && controle.alvoCapturado[1] == coluna) {
-        snake.arrayPosition.push([linha, coluna])
-        controle.alvoCapturado = [];
-        crescimentoPendente = false;
-    }
 }
 
 function removerClassePorId(id, classe) {
