@@ -4,28 +4,28 @@ function createGame() {
         switch(command) {
 
             case config.key.ArrowUp:
-                if(direcaoAtual === config.key.ArrowLeft || direcaoAtual === config.key.ArrowRight)
-                    direcaoAtual = config.key.ArrowUp;
+                if(controle.direcao === config.key.ArrowLeft || controle.direcao === config.key.ArrowRight)
+                    controle.direcao = config.key.ArrowUp;
                 break;
     
             case config.key.ArrowDown:
-                if(direcaoAtual === config.key.ArrowLeft || direcaoAtual === config.key.ArrowRight)
-                    direcaoAtual = config.key.ArrowDown;
+                if(controle.direcao === config.key.ArrowLeft || controle.direcao === config.key.ArrowRight)
+                    controle.direcao = config.key.ArrowDown;
                 break;
     
             case config.key.ArrowLeft:
-                if(direcaoAtual === config.key.ArrowUp || direcaoAtual === config.key.ArrowDown)
-                    direcaoAtual = config.key.ArrowLeft;
+                if(controle.direcao === config.key.ArrowUp || controle.direcao === config.key.ArrowDown)
+                    controle.direcao = config.key.ArrowLeft;
                 break;
     
             case config.key.ArrowRight:
-                if(direcaoAtual === config.key.ArrowUp || direcaoAtual === config.key.ArrowDown)
-                    direcaoAtual = config.key.ArrowRight;
+                if(controle.direcao === config.key.ArrowUp || controle.direcao === config.key.ArrowDown)
+                    controle.direcao = config.key.ArrowRight;
                 break;
     
             case config.key.P:
                 if (!controle.fimDeJogo)
-                    controle.pause = !controle.pause;
+                    controle.controle.pause = !controle.pause;
                 break
     
             case config.key.Escape:
@@ -68,7 +68,6 @@ function createKeyboardListener(){
     return { 
         subscribe
     }
-
 }
 
 const config = {
@@ -86,10 +85,12 @@ const config = {
 };
 
 const controle = {
+    direcao: config.key.ArrowDown,
     proximoMovimento: [],
     alvoCapturado: [],
     fimDeJogo: false,
-    pause: false
+    pause: false, 
+    velocidadeMs: 350
 }
 
 const atributosVisuais = {
@@ -99,11 +100,9 @@ const atributosVisuais = {
     }
 }
 
-var pontuacao = 0;
+var pontos = 0;
 var crescimentoPendente = false;
-var velocidadeMs = 350;
 var alvo = [];
-var direcaoAtual = config.key.ArrowDown;
 
 class Snake {
     
@@ -120,23 +119,23 @@ class Snake {
         let linha = 0;
         let coluna = 0;
 
-        if (direcaoAtual === config.key.ArrowDown) {
+        if (controle.direcao === config.key.ArrowDown) {
             //regra de negócio
             linha = last[0] + 1;
             coluna = last[1];
         }
 
-        if (direcaoAtual === config.key.ArrowLeft) {
+        if (controle.direcao === config.key.ArrowLeft) {
             linha = last[0];
             coluna = last[1] - 1;
         }
 
-        if (direcaoAtual === config.key.ArrowRight) {
+        if (controle.direcao === config.key.ArrowRight) {
             linha = last[0];
             coluna = last[1] + 1;
         }
 
-        if (direcaoAtual === config.key.ArrowUp) {
+        if (controle.direcao === config.key.ArrowUp) {
             linha = last[0] - 1;
             coluna = last[1];
         }
@@ -181,8 +180,8 @@ class Snake {
     }
 
     aumentarVelocidade() {
-        if (velocidadeMs > config.velocidadeMsMaxima)
-            velocidadeMs = velocidadeMs - 10;
+        if (controle.velocidadeMs > config.velocidadeMsMaxima)
+            controle.velocidadeMs = controle.velocidadeMs - 10;
     }
 }
 
@@ -205,9 +204,9 @@ function novoAlvo() {
 }
 
 function pontuar() {
-    pontuacao++;
+    pontos++;
     let pontuacaoElement = document.getElementsByTagName("p")[0];
-    pontuacaoElement.innerHTML = `Pontuação: ${pontuacao}`;
+    pontuacaoElement.innerHTML = `Pontuação: ${pontos}`;
 }
 
 construirArea();
@@ -269,10 +268,10 @@ async function infinitLoop() {
 
     while(!controle.fimDeJogo) {
         
-        await sleep(velocidadeMs);
+        await sleep(controle.velocidadeMs);
         
         if (!controle.pause)
-            snake.andar(direcaoAtual);
+            snake.andar(controle.direcao);
     }
 }
 
