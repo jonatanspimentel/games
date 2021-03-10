@@ -115,7 +115,7 @@ class Snake {
 
     andar() {
 
-        destruirSnake();
+        reposicionarSnake();
 
         var last = this.arrayPosition[this.arrayPosition.length - 1];
         let linha = 0;
@@ -235,11 +235,8 @@ function construirContainer(){
     });
 }
 
-function destruirSnake() {
-    //apagar os elementos de snake
-    snake.arrayPosition.forEach(function(s) {
-        removerClassePorId(`l${s[0]}c${s[1]}`, atributosVisuais.classe.snake);
-    });
+function reposicionarSnake() {
+    removerClassePorId(`l${snake.arrayPosition[0][0]}c${snake.arrayPosition[0][1]}`, atributosVisuais.classe.snake);
 }
 
 function removerClassePorId(id, classe) {
