@@ -87,6 +87,7 @@ const config = {
 
 const controle = {
     proximoMovimento: [],
+    alvoCapturado: [],
     fimDeJogo: false,
     pause: false
 }
@@ -115,12 +116,10 @@ class Snake {
 
     andar() {
 
-        reposicionarSnake();
-
         var last = this.arrayPosition[this.arrayPosition.length - 1];
         let linha = 0;
         let coluna = 0;
-        
+
         if (direcaoAtual === config.key.ArrowDown) {
             //regra de negócio
             linha = last[0] + 1;
@@ -146,7 +145,8 @@ class Snake {
         
         this.crescer(linha, coluna);
         this.capturarORato(linha, coluna);
-        this.atualizarPercurso();
+        reposicionarSnake();
+        this.atualizarPercurso(linha, coluna);
 
         construirContainer();
 
@@ -157,7 +157,7 @@ class Snake {
         if (linha == rato[0] && coluna == rato[1]) {
             
             crescimentoPendente = true;
-
+            controle.alvoCapturado.push(linha, coluna);
             pontuar();
             criarNovoRato();
             this.aumentarVelocidade();
@@ -235,8 +235,15 @@ function construirContainer(){
     });
 }
 
-function reposicionarSnake() {
+function reposicionarSnake(linha, coluna) {
+
     removerClassePorId(`l${snake.arrayPosition[0][0]}c${snake.arrayPosition[0][1]}`, atributosVisuais.classe.snake);
+
+    if (crescimentoPendente && controle.alvoCapturado[0] === linha && controle.alvoCapturado[1] == coluna) {
+        snake.arrayPosition.push([linha, coluna])
+        controle.alvoCapturado = [];
+        crescimentoPendente = false;
+    }
 }
 
 function removerClassePorId(id, classe) {
