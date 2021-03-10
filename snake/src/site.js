@@ -1,14 +1,86 @@
+function createGame() {
+
+    function move(command) {
+        switch(command) {
+
+            case config.key.ArrowUp:
+                if(direcaoAtual === config.key.ArrowLeft || direcaoAtual === config.key.ArrowRight)
+                    direcaoAtual = config.key.ArrowUp;
+                break;
+    
+            case config.key.ArrowDown:
+                if(direcaoAtual === config.key.ArrowLeft || direcaoAtual === config.key.ArrowRight)
+                    direcaoAtual = config.key.ArrowDown;
+                break;
+    
+            case config.key.ArrowLeft:
+                if(direcaoAtual === config.key.ArrowUp || direcaoAtual === config.key.ArrowDown)
+                    direcaoAtual = config.key.ArrowLeft;
+                break;
+    
+            case config.key.ArrowRight:
+                if(direcaoAtual === config.key.ArrowUp || direcaoAtual === config.key.ArrowDown)
+                    direcaoAtual = config.key.ArrowRight;
+                break;
+    
+            case config.key.P:
+                if (!controle.fimDeJogo)
+                    controle.pause = !controle.pause;
+                break
+    
+            case config.key.Escape:
+                controle.fimDeJogo = true;
+                break
+            
+        }
+    }
+
+    return  {
+        move
+    }
+}
+
+const game = createGame();
+const keyboardListener = createKeyboardListener();
+keyboardListener.subscribe(game.move);
+
+function createKeyboardListener(){
+    const state = {
+        observers: []
+    }
+
+    function subscribe(observerFunction) {
+        state.observers.push(observerFunction);
+    }
+
+    function notifyAll(command) {
+        for (const observerFunction of state.observers) {
+            observerFunction(command);
+        }
+    }
+
+    document.addEventListener('keydown', handleKeydown);
+
+    function handleKeydown(event) {        
+        notifyAll(event.key);
+    }
+
+    return { 
+        subscribe
+    }
+
+}
 
 const config = {
     area: [],
     size: 40,
-    tecla: {
-        esc: 27,
-        esquerda: 37,
-        cima: 38,
-        direita: 39,
-        baixo: 40,
-        P: 80
+    key: {
+        Escape: "Escape",
+        ArrowLeft: "ArrowLeft",
+        ArrowUp: "ArrowUp",
+        ArrowRight: "ArrowRight",
+        ArrowDown: "ArrowDown",
+        P: "p"
     },
     velocidadeMsMaxima: 80
 };
@@ -30,7 +102,7 @@ var pontuacao = 0;
 var crescimentoPendente = false;
 var velocidadeMs = 350;
 var rato = [];
-var direcaoAtual = config.tecla.baixo;
+var direcaoAtual = config.key.ArrowDown;
 
 class Snake {
     
@@ -41,7 +113,7 @@ class Snake {
 
     arrayPosition = [];
 
-    mover() {
+    andar() {
 
         destruirSnake();
 
@@ -49,22 +121,23 @@ class Snake {
         let linha = 0;
         let coluna = 0;
         
-        if (direcaoAtual === config.tecla.baixo) {
+        if (direcaoAtual === config.key.ArrowDown) {
+            //regra de negócio
             linha = last[0] + 1;
             coluna = last[1];
         }
 
-        if (direcaoAtual === config.tecla.esquerda) {
+        if (direcaoAtual === config.key.ArrowLeft) {
             linha = last[0];
             coluna = last[1] - 1;
         }
 
-        if (direcaoAtual === config.tecla.direita) {
+        if (direcaoAtual === config.key.ArrowRight) {
             linha = last[0];
             coluna = last[1] + 1;
         }
 
-        if (direcaoAtual === config.tecla.cima) {
+        if (direcaoAtual === config.key.ArrowUp) {
             linha = last[0] - 1;
             coluna = last[1];
         }
@@ -192,59 +265,19 @@ function novoBloco(linha, coluna) {
 
 //#endregion
 
-//#region Events
-
-document.onkeydown = function (e) {
-    
-    switch(e.which) {
-
-        case config.tecla.cima:
-            if(direcaoAtual === config.tecla.esquerda || direcaoAtual === config.tecla.direita)
-                direcaoAtual = config.tecla.cima;
-            break;
-
-        case config.tecla.baixo:
-            if(direcaoAtual === config.tecla.esquerda || direcaoAtual === config.tecla.direita)
-                direcaoAtual = config.tecla.baixo;
-            break;
-
-        case config.tecla.esquerda:
-            if(direcaoAtual === config.tecla.cima || direcaoAtual === config.tecla.baixo)
-                direcaoAtual = config.tecla.esquerda;
-            break;
-
-        case config.tecla.direita:
-            if(direcaoAtual === config.tecla.cima || direcaoAtual === config.tecla.baixo)
-                direcaoAtual = config.tecla.direita;
-            break;
-
-        case config.tecla.P:
-            if (!controle.fimDeJogo)
-                controle.pause = !controle.pause;
-            break
-
-        case config.tecla.esc:
-            controle.fimDeJogo = true;
-            break
-        
-    }
-};
-
-//#endregion
-
 function sleep(ms) {
     return new Promise(resolve => setTimeout(resolve, ms));
 }
   
-async function infinite() {
+async function infinitLoop() {
 
     while(!controle.fimDeJogo) {
         
         await sleep(velocidadeMs);
         
         if (!controle.pause)
-            snake.mover(direcaoAtual);
+            snake.andar(direcaoAtual);
     }
 }
 
-infinite();
+infinitLoop();
