@@ -94,7 +94,7 @@ const controle = {
 
 const atributosVisuais = {
     classe: {
-        mouse: "mouse",
+        alvo: "alvo",
         snake: "snake", 
     }
 }
@@ -102,7 +102,7 @@ const atributosVisuais = {
 var pontuacao = 0;
 var crescimentoPendente = false;
 var velocidadeMs = 350;
-var rato = [];
+var alvo = [];
 var direcaoAtual = config.key.ArrowDown;
 
 class Snake {
@@ -144,7 +144,7 @@ class Snake {
         controle.proximoMovimento.push([linha, coluna]);
         
         this.crescer(linha, coluna);
-        this.capturarORato(linha, coluna);
+        this.capturarAlvo(linha, coluna);
         reposicionarSnake();
         this.atualizarPercurso(linha, coluna);
 
@@ -152,14 +152,14 @@ class Snake {
 
     }
 
-    capturarORato(linha, coluna) { 
+    capturarAlvo(linha, coluna) { 
 
-        if (linha == rato[0] && coluna == rato[1]) {
+        if (linha == alvo[0] && coluna == alvo[1]) {
             
             crescimentoPendente = true;
             controle.alvoCapturado.push(linha, coluna);
             pontuar();
-            criarNovoRato();
+            novoAlvo();
             this.aumentarVelocidade();
             
         }
@@ -185,16 +185,16 @@ class Snake {
 
 const snake = new Snake();
 
-function criarNovoRato() {
+function novoAlvo() {
     
-    if (rato.length > 0)
-        removerClassePorId(`l${rato[0]}c${rato[1]}`, atributosVisuais.classe.mouse);
+    if (alvo.length > 0)
+        removerClassePorId(`l${alvo[0]}c${alvo[1]}`, atributosVisuais.classe.alvo);
 
     linha = randomNumber();
     coluna = randomNumber();
     
-    rato = [linha, coluna];
-    config.area[linha][coluna] = atributosVisuais.classe.mouse;
+    alvo = [linha, coluna];
+    config.area[linha][coluna] = atributosVisuais.classe.alvo;
 
     function randomNumber(){
         return Math.floor(Math.random() * config.size);
@@ -208,7 +208,7 @@ function pontuar() {
 }
 
 construirArea();
-criarNovoRato();
+novoAlvo();
 
 //#region Elements
 
@@ -226,8 +226,8 @@ function construirArea() {
 
 function construirContainer(){
 
-    //adicionar mouse
-    adicionarClassePorId(`l${rato[0]}c${rato[1]}`, atributosVisuais.classe.mouse);
+    //adicionar alvo
+    adicionarClassePorId(`l${alvo[0]}c${alvo[1]}`, atributosVisuais.classe.alvo);
 
     //adicionar snake
     snake.arrayPosition.forEach(function(s) {
