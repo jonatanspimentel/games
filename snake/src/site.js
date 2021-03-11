@@ -25,7 +25,7 @@ function createGame() {
     
             case config.key.P:
                 if (!controle.fimDeJogo)
-                    controle.controle.pause = !controle.pause;
+                    controle.pause = !controle.pause;
                 break
     
             case config.key.Escape:
@@ -90,7 +90,8 @@ const controle = {
     alvoCapturado: [],
     fimDeJogo: false,
     pause: false, 
-    velocidadeMs: 350
+    velocidadeMs: 350,
+    crescimentoPendente = false
 }
 
 const atributosVisuais = {
@@ -101,7 +102,7 @@ const atributosVisuais = {
 }
 
 var pontos = 0;
-var crescimentoPendente = false;
+
 var alvo = [];
 
 class Snake {
@@ -154,7 +155,7 @@ class Snake {
 
         if (linha == alvo[0] && coluna == alvo[1]) {
             
-            crescimentoPendente = true;
+            controle.crescimentoPendente = true;
             controle.alvoCapturado.push(linha, coluna);
             pontuar();
             novoAlvo();
@@ -165,10 +166,10 @@ class Snake {
 
     reposicionarSnake(linha, coluna) {
 
-        if (crescimentoPendente && controle.alvoCapturado[0] === linha && controle.alvoCapturado[1] == coluna) {
+        if (controle.crescimentoPendente && controle.alvoCapturado[0] === linha && controle.alvoCapturado[1] == coluna) {
             snake.arrayPosition.push([linha, coluna])
             controle.alvoCapturado = [];
-            crescimentoPendente = false;
+            controle.crescimentoPendente = false;
         }
 
         removerClassePorId(`l${snake.arrayPosition[0][0]}c${snake.arrayPosition[0][1]}`, atributosVisuais.classe.snake);
