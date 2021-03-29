@@ -1,6 +1,5 @@
 import { config, control, target } from './config.js';
 
-import areaModule from './areaModule.js';
 import dataModule from './dataModule.js'; 
 import snakeModule from './snakeModule.js'
 import targetModule from './targetModule.js';
@@ -48,7 +47,6 @@ function game() {
     function start() {
         control.direction = config.key.ArrowDown;
         control.status = config.status.Running;
-        areaModule.createArea();
         snakeModule.createSnake();
         targetModule.createTarget();
     }
