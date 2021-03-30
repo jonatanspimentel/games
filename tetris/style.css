@@ -1,5 +1,25 @@
-.piece {
+.iblock {
+    background-color: orange;
+}
+
+.jblock {
+    background-color: rgb(27, 30, 253);   
+} 
+
+.oblock {
+    background-color: rgb(0, 158, 34);
+}
+
+.sblock {
     background-color: rgb(0, 217, 238);   
+} 
+
+.tblock {
+    background-color: rgb(221, 50, 255);   
+} 
+
+.zblock {
+    background-color: rgb(255, 0, 0);
 } 
 
 div {
