@@ -15,8 +15,12 @@ export const config = {
 }
 
 export const game = {
+    endGame: false,
     initialColumn: 6,
-    initialLine: 2
+    initialLine: 2,
+    pause: false,
+    speed: 300,
+
 }
 
 export let pieceArea = [];
