@@ -1,4 +1,4 @@
-import { pieceArea, game } from './config.js'
+import { pieceArea, area } from './config.js'
 
 function pieceModule() {
 
@@ -10,8 +10,8 @@ function pieceModule() {
         for (let i = 0; i < format.length; i++)
             for (let j = 0; j < format[i].blocks.length; j++) {
                 increase({
-                    line: (game.initialLine + format[i].line),
-                    column: (game.initialColumn + format[i].blocks[j]),
+                    line: (area.initialPosition.line + format[i].line),
+                    column: (area.initialPosition.column + format[i].blocks[j]),
                     color: color
                 });
             }

@@ -1,11 +1,11 @@
 import css from './css.js';
-import { config}  from './config.js';
+import { area }  from './config.js';
 
 function areaHtml() {
 
     function createAreaHtml() {
-        for (let line = 0; line < config.maxLines; line++)
-            for (let column = 0; column < config.maxColumns; column++) {
+        for (let line = 0; line < area.size.maxLines; line++)
+            for (let column = 0; column < area.size.maxColumns; column++) {
                 container.appendChild(css.addElementHtml("div", [{ name: "id", value: `l${line}c${column}` }]));
             }
     }

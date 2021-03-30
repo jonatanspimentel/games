@@ -9,16 +9,22 @@ export const attr = {
     }
 }
 
-export const config = {
-    maxColumns: 10,
-    maxLines: 20
+export const area = {
+    
+    initialPosition:
+    {
+        column: 6,
+        line: 2
+    },
+
+    size: {
+        maxColumns: 10,
+        maxLines: 20
+    }
 }
 
 export const game = {
-    
-    initialColumn: 6,
-    initialLine: 2,
-    
+
     speed: 300,
     state: {
         endGame: false,
