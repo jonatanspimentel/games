@@ -27,4 +27,12 @@ export const game = {
 
 }
 
+export const control = {
+    ArrowUp: "ArrowUp",
+    ArrowLeft: "ArrowLeft",
+    ArrowRight: "ArrowRight",
+    Escape: "Escape",
+    P: "p"
+}
+
 export let pieceArea = [];
