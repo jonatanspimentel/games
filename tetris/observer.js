@@ -45,9 +45,9 @@ function sleep(ms) {
   
 async function infinitLoop() {
 
-    while(!game.endGame) {
+    while(!game.state.endGame) {
         
-        await sleep(game.speed);
+        await sleep(game.state.speed);
         
         //if (!game.pause)
             //game.walk();
