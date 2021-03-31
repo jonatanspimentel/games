@@ -1,13 +1,14 @@
-import { templateBlocks } from './templateBlock.js';
-import { blockArea } from './config.js';
 
-import blockModule from './blockModule.js';
-import observerModule from './observerModule.js';
+import { blockArea } from './config.js';
 
 import areaHtml from './areaHtml.js';
 import blockHtml from './blockHtml.js';
 
-blockModule.addBlock(templateBlocks.tBlock.formA, templateBlocks.tBlock.color);
+import blockModule from './blockModule.js';
+import observerModule from './observerModule.js';
+
+let block = blockModule.draw();
+blockModule.addBlock(block, 'tblock');
 
 areaHtml.createAreaHtml();
 blockHtml.addBlockHtml(blockArea[blockArea.length - 1]);

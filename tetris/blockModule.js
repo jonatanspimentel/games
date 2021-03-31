@@ -1,4 +1,6 @@
-import { blockArea, area } from './config.js'
+import { blockArea, area } from './config.js';
+import { templateBlock } from './templateBlock.js';
+
 import blockHtml from './blockHtml.js';
 
 function blockModule() {
@@ -7,24 +9,25 @@ function blockModule() {
         createByFormat(block, color);
     }
 
-    function createByFormat(format, color) {
+    function createByFormat(blockLines, color) {
 
         var block = [];
 
-        for (let i = 0; i < format.length; i++)
-            for (let j = 0; j < format[i].blocks.length; j++) {
+        for (let i = 0; i < blockLines.length; i++) {
+            for (let j = 0; j < blockLines[i].columns.length; j++) {
                 block.push({
-                    line: (area.initialPosition.line + format[i].line),
-                    column: (area.initialPosition.column + format[i].blocks[j]),
+                    line: (area.initialPosition.line + blockLines[i].line),
+                    column: (area.initialPosition.column + blockLines[i].columns[j]),
                     color: color
                 });
             }
-
+        }
+        
         increase(block);
     }
 
-    function increase(piece) {
-        blockArea.push(piece);
+    function increase(block) {
+        blockArea.push(block);
     }
 
     function move(c, l = 0) {
@@ -33,16 +36,14 @@ function blockModule() {
         let blockMoved = [];
 
         oldBlock.forEach(b => {
-            
-            let fragmentMoved = { 
+
+            let fragmentMoved = {
                 color: b.color,
                 column: (b.column + c),
                 line: (b.line + l)
             };
 
-            //deveria estar aqui mesmo?
             blockHtml.remove(b);
-
             blockMoved.push(fragmentMoved);
 
         });
@@ -52,9 +53,17 @@ function blockModule() {
 
     }
 
+    function draw() {
+        var block = templateBlock[(Math.floor(Math.random() * (templateBlock.length - 1)))];
+        var form = block[(Math.floor(Math.random(0, block.length - 1)) * (block.length - 1))];
+
+        return form;
+    }
+
     return {
         addBlock,
-        move
+        move,
+        draw
     }
 }
 
