@@ -1,5 +1,5 @@
 
-import pieceModule from './pieceModule.js';
+import blockModule from './blockModule.js';
 import { control, game, moveTo } from './config.js'
 
 function commandModule() {
@@ -37,12 +37,12 @@ function commandModule() {
 
     function move2Left() {
         //TODO: espaço à esquerda
-        pieceModule.move(moveTo.Left);
+        blockModule.move(moveTo.Left);
     }
 
     function move2Right() {
         //TODO: espaço à direita
-        pieceModule.move(moveTo.Right);
+        blockModule.move(moveTo.Right);
     }
 
     function pause() {

@@ -1,10 +1,10 @@
-import { pieceArea, area } from './config.js'
-import pieceHtml from './pieceHtml.js';
+import { blockArea, area } from './config.js'
+import blockHtml from './blockHtml.js';
 import css from './css.js';
 
-function pieceModule() {
+function blockModule() {
 
-    function addPiece(block, color) {
+    function addBlock(block, color) {
         createByFormat(block, color);
     }
 
@@ -25,12 +25,12 @@ function pieceModule() {
     }
 
     function increase(piece) {
-        pieceArea.push(piece);
+        blockArea.push(piece);
     }
 
     function move(c, l = 0) {
 
-        let oldBlock = pieceArea.pop();
+        let oldBlock = blockArea.pop();
         let blockMoved = [];
 
         oldBlock.forEach(b => {
@@ -48,15 +48,15 @@ function pieceModule() {
 
         });
 
-        pieceArea.push(blockMoved);
-        pieceHtml.addPieceHtml(blockMoved);
+        blockArea.push(blockMoved);
+        blockHtml.addBlockHtml(blockMoved);
 
     }
 
     return {
-        addPiece,
+        addBlock,
         move
     }
 }
 
-export default pieceModule();
+export default blockModule();

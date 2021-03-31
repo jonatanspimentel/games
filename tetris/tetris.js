@@ -1,16 +1,16 @@
 import { templateBlocks } from './templateBlock.js';
-import { pieceArea } from './config.js';
+import { blockArea } from './config.js';
 
-import pieceModule from './pieceModule.js';
+import blockModule from './blockModule.js';
 import observerModule from './observerModule.js';
 
 import areaHtml from './areaHtml.js';
-import pieceHtml from './pieceHtml.js';
+import blockHtml from './blockHtml.js';
 
-pieceModule.addPiece(templateBlocks.tBlock.formA, templateBlocks.tBlock.color);
+blockModule.addBlock(templateBlocks.tBlock.formA, templateBlocks.tBlock.color);
 
 areaHtml.createAreaHtml();
-pieceHtml.addPieceHtml(pieceArea[pieceArea.length - 1]);
+blockHtml.addBlockHtml(blockArea[blockArea.length - 1]);
 
 // function sleep(ms) {
 //     return new Promise(resolve => setTimeout(resolve, ms));

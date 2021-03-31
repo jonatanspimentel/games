@@ -47,4 +47,4 @@ export const moveTo = {
     Right: 1
 }
 
-export let pieceArea = [];
+export let blockArea = [];
