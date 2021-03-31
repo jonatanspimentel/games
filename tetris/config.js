@@ -41,4 +41,10 @@ export const control = {
     P: "p"
 }
 
+export const moveTo = {
+    Down: 1,
+    Left: -1,
+    Right: 1
+}
+
 export let pieceArea = [];

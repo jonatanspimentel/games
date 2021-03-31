@@ -1,4 +1,3 @@
-import { pieceArea } from "./config.js";
 import css from "./css.js";
 
 function pieceHtml() {
@@ -7,8 +6,8 @@ function pieceHtml() {
         css.addClassAttrById(`l${pieceFragment.line}c${pieceFragment.column}`, pieceFragment.color);
     }
 
-    function addPieceHtml() {
-        pieceArea.forEach(function (p) { addHtmlPiece(p); });
+    function addPieceHtml(block) {
+        block.forEach(function (p) { addHtmlPiece(p); });
     }
 
     return {
