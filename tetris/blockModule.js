@@ -1,6 +1,5 @@
 import { blockArea, area } from './config.js'
 import blockHtml from './blockHtml.js';
-import css from './css.js';
 
 function blockModule() {
 
@@ -42,7 +41,7 @@ function blockModule() {
             };
 
             //deveria estar aqui mesmo?
-            css.removeClassAttrById(`l${b.line}c${b.column}` , "tblock")
+            blockHtml.remove(b);
 
             blockMoved.push(fragmentMoved);
 

@@ -10,8 +10,13 @@ function blockHtml() {
         block.forEach(function (p) { addHtmlFragment(p); });
     }
 
+    function remove(block) {
+        css.removeClassAttrById(`l${block.line}c${block.column}`, block.color);
+    }
+
     return {
-        addBlockHtml
+        addBlockHtml,
+        remove
     }
 }
 
