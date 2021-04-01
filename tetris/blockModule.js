@@ -18,12 +18,8 @@ function blockModule() {
                 });
             }
         }
-        
-        increase(newBlock);
-    }
 
-    function increase(block) {
-        blockArea.push(block);
+        blockArea.push(newBlock);
     }
 
     function move(c, l = 0) {
@@ -50,7 +46,7 @@ function blockModule() {
     }
 
     function draw() {
-        
+
         var rdmBlock = Math.floor(Math.random() * templateBlock.length);
         var block = templateBlock[rdmBlock];
 
