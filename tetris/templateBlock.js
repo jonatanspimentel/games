@@ -34,12 +34,35 @@ export const templateBlock =
                 { line: 0, columns: [-1] }
             ],
             [
-                { line: -1, columns: [-1, -0, 1] },
+                { line: -1, columns: [-1, 0, 1] },
                 { line: 0, columns: [1] }
             ],
             //color: attr.class.jBlock
         ],
         //#endregion jBlock
+        //#region lBlock
+        [
+            [
+                { line: -2, columns: [0] },
+                { line: -1, columns: [0] },
+                { line: 0, columns: [0, 1] }
+            ],
+            [
+                { line: -1, columns: [1] },
+                { line: 0, columns: [-1, 0, 1] }
+            ],
+            [
+                { line: -2, columns: [-1, 0] },
+                { line: -1, columns: [0] },
+                { line: 0, columns: [0] }
+            ],
+            [
+                { line: -1, columns: [-1, 0, 1] },
+                { line: 0, columns: [-1] }
+            ],
+            //color: attr.class.jBlock
+        ],
+        //#endregion Block
         //#region oBlock
         [
             [
