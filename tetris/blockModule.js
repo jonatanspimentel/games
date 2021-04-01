@@ -54,8 +54,12 @@ function blockModule() {
     }
 
     function draw() {
-        var block = templateBlock[(Math.floor(Math.random() * (templateBlock.length - 1)))];
-        var form = block[(Math.floor(Math.random(0, block.length - 1)) * (block.length - 1))];
+        
+        var rdmBlock = Math.floor(Math.random() * templateBlock.length);
+        var block = templateBlock[rdmBlock];
+
+        let rdmForm = Math.floor(Math.random() * block.length);
+        var form = block[rdmForm];
 
         return form;
     }

@@ -62,7 +62,7 @@ export const templateBlock =
             ],
             //color: attr.class.jBlock
         ],
-        //#endregion Block
+        //#endregion lBlock
         //#region oBlock
         [
             [
