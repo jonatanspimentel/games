@@ -11,7 +11,9 @@ function blockHtml() {
     }
 
     function remove(block) {
-        css.removeClassAttrById(`l${block.line}c${block.column}`, block.color);
+        block.forEach(b => { 
+            css.removeClassAttrById(`l${b.line}c${b.column}`, b.color);
+        });
     }
 
     return {

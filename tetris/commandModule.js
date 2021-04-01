@@ -33,7 +33,11 @@ function commandModule() {
     }
 
     function changePosition() {
-        alert("alterando a posição");
+
+        blockHtml.remove(blockArea[blockArea.length - 1]);
+        let form = blockModule.changeForm();
+        blockModule.add(form, 'jblock');
+        blockHtml.add(blockArea[blockArea.length - 1]);
     }
 
     function move2Left() {

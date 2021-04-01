@@ -1,4 +1,4 @@
-import { blockArea, area } from './config.js';
+import { actualBlock, blockArea, area } from './config.js';
 import { templateBlock } from './templateBlock.js';
 
 import blockHtml from './blockHtml.js';
@@ -22,6 +22,21 @@ function blockModule() {
         blockArea.push(newBlock);
     }
 
+    function changeForm() {
+        let block = getType();
+
+        if (block.length > 1) {
+
+            if (actualBlock.form == (block.length - 1))
+                actualBlock.form = 0;
+            else 
+                actualBlock.form ++;
+        }
+
+        return getForm(block);
+
+    }
+
     function move(c, l = 0) {
 
         let oldBlock = blockArea.pop();
@@ -35,31 +50,40 @@ function blockModule() {
                 line: (b.line + l)
             };
 
-            blockHtml.remove(b);
             blockMoved.push(fragmentMoved);
 
         });
 
+        blockHtml.remove(oldBlock);
         blockArea.push(blockMoved);
         blockHtml.add(blockMoved);
 
     }
 
-    function draw() {
+    function getRandomBlock() {
+        
+        actualBlock.type = Math.floor(Math.random() * templateBlock.length);
+        let blockType = getType();
 
-        var rdmBlock = Math.floor(Math.random() * templateBlock.length);
-        var block = templateBlock[rdmBlock];
+        actualBlock.form = Math.floor(Math.random() * blockType.length);
+        let blockForm = getForm(blockType);
 
-        let rdmForm = Math.floor(Math.random() * block.length);
-        var form = block[rdmForm];
+        return blockForm;
+    }
 
-        return form;
+    function getType() {
+        return templateBlock[actualBlock.type];
+    }
+
+    function getForm(block) {
+        return block[actualBlock.form];
     }
 
     return {
         add,
-        move,
-        draw
+        changeForm,
+        getRandomBlock,
+        move
     }
 }
 

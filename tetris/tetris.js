@@ -9,8 +9,9 @@ import observerModule from './observerModule.js';
 
 areaHtml.createAreaHtml();
 
-let block = blockModule.draw();
-blockModule.add(block, 'tblock');
+let randomBlock = blockModule.getRandomBlock();
+
+blockModule.add(randomBlock, 'tblock');
 blockHtml.add(blockArea[blockArea.length - 1]);
 
 // function sleep(ms) {

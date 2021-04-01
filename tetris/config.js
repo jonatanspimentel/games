@@ -10,13 +10,11 @@ export const attr = {
 }
 
 export const area = {
-    
     initialPosition:
     {
         column: 6,
         line: 2
     },
-
     size: {
         maxColumns: 10,
         maxLines: 20
@@ -24,13 +22,11 @@ export const area = {
 }
 
 export const game = {
-
     speed: 300,
     state: {
         endGame: false,
         pause: false
-    },
-
+    }
 }
 
 export const control = {
@@ -48,3 +44,8 @@ export const moveTo = {
 }
 
 export let blockArea = [];
+
+export let actualBlock = {
+    type: undefined,
+    form: undefined
+}
