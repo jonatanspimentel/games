@@ -59,6 +59,9 @@ function blockModule() {
 
         });
 
+        area.initialPosition.line = (area.initialPosition.line + l);
+        area.initialPosition.column = (area.initialPosition.column + c);
+
         blockHtml.remove(oldBlock);
         blockArea.push(blockMoved);
         blockHtml.add(blockMoved);
