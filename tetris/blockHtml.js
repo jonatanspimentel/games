@@ -2,12 +2,12 @@ import css from "./css.js";
 
 function blockHtml() {
 
-    function addHtmlFragment(blockFragment) {
+    function addFragment(blockFragment) {
         css.addClassAttrById(`l${blockFragment.line}c${blockFragment.column}`, blockFragment.color);
     }
 
-    function addBlockHtml(block) {
-        block.forEach(function (p) { addHtmlFragment(p); });
+    function add(block) {
+        block.forEach(function (p) { addFragment(p); });
     }
 
     function remove(block) {
@@ -15,7 +15,7 @@ function blockHtml() {
     }
 
     return {
-        addBlockHtml,
+        add,
         remove
     }
 }

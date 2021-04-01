@@ -5,25 +5,21 @@ import blockHtml from './blockHtml.js';
 
 function blockModule() {
 
-    function addBlock(block, color) {
-        createByFormat(block, color);
-    }
+    function add(block, color) {
 
-    function createByFormat(blockLines, color) {
+        var newBlock = [];
 
-        var block = [];
-
-        for (let i = 0; i < blockLines.length; i++) {
-            for (let j = 0; j < blockLines[i].columns.length; j++) {
-                block.push({
-                    line: (area.initialPosition.line + blockLines[i].line),
-                    column: (area.initialPosition.column + blockLines[i].columns[j]),
+        for (let i = 0; i < block.length; i++) {
+            for (let j = 0; j < block[i].columns.length; j++) {
+                newBlock.push({
+                    line: (area.initialPosition.line + block[i].line),
+                    column: (area.initialPosition.column + block[i].columns[j]),
                     color: color
                 });
             }
         }
         
-        increase(block);
+        increase(newBlock);
     }
 
     function increase(block) {
@@ -49,7 +45,7 @@ function blockModule() {
         });
 
         blockArea.push(blockMoved);
-        blockHtml.addBlockHtml(blockMoved);
+        blockHtml.add(blockMoved);
 
     }
 
@@ -65,7 +61,7 @@ function blockModule() {
     }
 
     return {
-        addBlock,
+        add,
         move,
         draw
     }

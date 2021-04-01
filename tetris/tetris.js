@@ -7,11 +7,11 @@ import blockHtml from './blockHtml.js';
 import blockModule from './blockModule.js';
 import observerModule from './observerModule.js';
 
-let block = blockModule.draw();
-blockModule.addBlock(block, 'tblock');
-
 areaHtml.createAreaHtml();
-blockHtml.addBlockHtml(blockArea[blockArea.length - 1]);
+
+let block = blockModule.draw();
+blockModule.add(block, 'tblock');
+blockHtml.add(blockArea[blockArea.length - 1]);
 
 // function sleep(ms) {
 //     return new Promise(resolve => setTimeout(resolve, ms));

@@ -1,33 +1,34 @@
 
 import blockModule from './blockModule.js';
-import { control, game, moveTo } from './config.js'
+import blockHtml from './blockHtml.js';
+import { blockArea, control, game, moveTo } from './config.js'
 
 function commandModule() {
 
     function getCommand(command) {
-        
-        switch(command) {
+
+        switch (command) {
 
             case control.ArrowUp:
                 changePosition();
                 break;
-   
+
             case control.ArrowLeft:
                 move2Left();
                 break;
-    
+
             case control.ArrowRight:
                 move2Right();
                 break;
-    
+
             case control.P:
                 pause();
                 break
-    
+
             case control.Escape:
                 end();
                 break
-            
+
         }
     }
 
