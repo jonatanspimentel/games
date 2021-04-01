@@ -1,5 +1,5 @@
 
-import { blockArea } from './config.js';
+import { blockArea, game, moveTo } from './config.js';
 
 import areaHtml from './areaHtml.js';
 import blockHtml from './blockHtml.js';
@@ -14,18 +14,19 @@ let randomBlock = blockModule.getRandomBlock();
 blockModule.add(randomBlock, 'tblock');
 blockHtml.add(blockArea[blockArea.length - 1]);
 
-// function sleep(ms) {
-//     return new Promise(resolve => setTimeout(resolve, ms));
-// }
-// async function infinitLoop() {
-//     while (!game.state.endGame) {
-//         await sleep(game.state.speed);
-//         //if (!game.pause)
-//         //game.walk();
-//     }
-// }
+ function sleep(ms) {
+     return new Promise(resolve => setTimeout(resolve, ms));
+ }
 
-//infinitLoop();
+ async function infinitLoop() {
+     while (!game.state.endGame) {
+         await sleep(game.speed);
+         if (!game.pause)
+            blockModule.move(0, moveTo.Down);
+     }
+ }
+
+infinitLoop();
 
 const gamePromisse = observerModule.createGame();
 const keyboardListener = observerModule.createKeyboardListener();

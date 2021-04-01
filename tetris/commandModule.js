@@ -1,7 +1,6 @@
 
 import blockModule from './blockModule.js';
-import blockHtml from './blockHtml.js';
-import { blockArea, control, game, moveTo } from './config.js'
+import { control, game, moveTo } from './config.js'
 
 function commandModule() {
 
@@ -33,11 +32,7 @@ function commandModule() {
     }
 
     function changePosition() {
-
-        blockHtml.remove(blockArea[blockArea.length - 1]);
-        let form = blockModule.changeForm();
-        blockModule.add(form, 'jblock');
-        blockHtml.add(blockArea[blockArea.length - 1]);
+        blockModule.changeForm();
     }
 
     function move2Left() {

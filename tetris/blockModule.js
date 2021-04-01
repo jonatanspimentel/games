@@ -23,17 +23,22 @@ function blockModule() {
     }
 
     function changeForm() {
+
         let block = getType();
 
         if (block.length > 1) {
 
+            blockHtml.remove(blockArea[blockArea.length - 1]);
+            
             if (actualBlock.form == (block.length - 1))
                 actualBlock.form = 0;
             else 
                 actualBlock.form ++;
-        }
 
-        return getForm(block);
+            add(getForm(block), 'jblock');
+            blockHtml.add(blockArea[blockArea.length - 1]);
+
+        }
 
     }
 

@@ -22,7 +22,7 @@ export const area = {
 }
 
 export const game = {
-    speed: 300,
+    speed: 1000,
     state: {
         endGame: false,
         pause: false
