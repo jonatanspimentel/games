@@ -32,7 +32,7 @@ function commandModule() {
     }
 
     function changePosition() {
-        blockModule.changeForm();
+        blockModule.modify();
     }
 
     function move2Left() {

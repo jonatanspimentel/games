@@ -1,10 +1,14 @@
 .iblock {
-    background-color: orange;
+    background-color: rgb(255, 154, 4);
 }
 
 .jblock {
     background-color: rgb(27, 30, 253);   
 } 
+
+.lblock {
+    background-color: rgb(255, 230, 0);
+}
 
 .oblock {
     background-color: rgb(0, 158, 34);
@@ -15,7 +19,7 @@
 } 
 
 .tblock {
-    background-color: rgb(221, 50, 255);   
+    background-color: rgb(163, 50, 255);   
 } 
 
 .zblock {

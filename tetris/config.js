@@ -2,6 +2,7 @@ export const attr = {
     class: {
         iBlock: "iblock",
         jBlock: "jblock",
+        lBlock: "lblock",
         oBlock: "oblock",
         sBlock: "sblock",
         tBlock: "tblock",
@@ -10,11 +11,6 @@ export const attr = {
 }
 
 export const area = {
-    initialPosition:
-    {
-        column: 6,
-        line: 2
-    },
     size: {
         maxColumns: 10,
         maxLines: 20
@@ -22,7 +18,12 @@ export const area = {
 }
 
 export const game = {
-    speed: 1000,
+    initialPosition:
+    {
+        column: 3,
+        line: 2
+    },
+    speed: 200,
     state: {
         endGame: false,
         pause: false
@@ -49,3 +50,5 @@ export let actualBlock = {
     type: undefined,
     form: undefined
 }
+
+export let embeddedBlocks = [];

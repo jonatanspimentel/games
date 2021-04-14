@@ -1,20 +1,20 @@
-import { actualBlock, blockArea, area } from './config.js';
-import { templateBlock } from './templateBlock.js';
+import { actualBlock, area, blockArea, embeddedBlocks, game } from './config.js';
+import { templateBlock, templateColor } from './templateBlock.js';
 
 import blockHtml from './blockHtml.js';
 
 function blockModule() {
 
-    function add(block, color) {
+    function add(block) {
 
         var newBlock = [];
 
-        for (let i = 0; i < block.length; i++) {
-            for (let j = 0; j < block[i].columns.length; j++) {
+        for (let i = 0; i < block.blockForm.length; i++) {
+            for (let j = 0; j < block.blockForm[i].columns.length; j++) {
                 newBlock.push({
-                    line: (area.initialPosition.line + block[i].line),
-                    column: (area.initialPosition.column + block[i].columns[j]),
-                    color: color
+                    line: (game.initialPosition.line + block.blockForm[i].line),
+                    column: (game.initialPosition.column + block.blockForm[i].columns[j]),
+                    color: block.colorBlock
                 });
             }
         }
@@ -22,24 +22,29 @@ function blockModule() {
         blockArea.push(newBlock);
     }
 
-    function changeForm() {
+    function modify() {
 
         let block = getType();
 
         if (block.length > 1) {
 
             blockHtml.remove(blockArea[blockArea.length - 1]);
-            
+
             if (actualBlock.form == (block.length - 1))
                 actualBlock.form = 0;
-            else 
-                actualBlock.form ++;
+            else {
+                actualBlock.form++;
+            }
 
-            add(getForm(block), 'jblock');
-            blockHtml.add(blockArea[blockArea.length - 1]);
+            add({ blockForm: getForm(block), colorBlock: getColor() });
+            show();
 
         }
 
+    }
+
+    function show() {
+        blockHtml.show(blockArea[blockArea.length - 1]);
     }
 
     function move(c, l = 0) {
@@ -59,24 +64,68 @@ function blockModule() {
 
         });
 
-        area.initialPosition.line = (area.initialPosition.line + l);
-        area.initialPosition.column = (area.initialPosition.column + c);
+        game.initialPosition.line = (game.initialPosition.line + l);
+        game.initialPosition.column = (game.initialPosition.column + c);
 
         blockHtml.remove(oldBlock);
         blockArea.push(blockMoved);
-        blockHtml.add(blockMoved);
+        blockHtml.show(blockMoved);
+
+        embedppdedBlock();
 
     }
 
-    function getRandomBlock() {
+    function embedppdedBlock() {
+        //TODO: remover condição
+        if (game.initialPosition.line === area.size.maxLines - 1 || verifyStackBlocks()) {
+            restartInitialPosition();
+            embedBlock();
+            newBlock();
+        }
+    }
+
+    function verifyStackBlocks() {
+        let b = blockArea[blockArea.length - 1];
+        let retorno = false;
+        b.forEach(b => {
+            if (embeddedBlocks.filter(o => o.line === b.line + 1 && o.column == b.column ).length > 0)
+                retorno = true;
+        });
+
+        return retorno;
+    }
+
+    function embedBlock() {
+        let block = blockArea.pop();
         
+        block.forEach(b => {
+            embeddedBlocks.push({ line: b.line, color: b.color, column : b.column }); 
+        });
+    }
+
+    function newBlock() {
+        add(randomBlock());
+        show();
+    }
+
+    function randomBlock() {
+
         actualBlock.type = Math.floor(Math.random() * templateBlock.length);
+
         let blockType = getType();
 
         actualBlock.form = Math.floor(Math.random() * blockType.length);
-        let blockForm = getForm(blockType);
 
-        return blockForm;
+        return { blockForm: getForm(blockType), colorBlock: getColor() };
+    }
+
+    function restartInitialPosition() {
+        game.initialPosition.column = 3;
+        game.initialPosition.line = 2;
+    }
+
+    function getColor() {
+        return templateColor[actualBlock.type];
     }
 
     function getType() {
@@ -88,10 +137,9 @@ function blockModule() {
     }
 
     return {
-        add,
-        changeForm,
-        getRandomBlock,
-        move
+        modify,
+        move,
+        newBlock
     }
 }
 

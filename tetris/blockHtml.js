@@ -6,7 +6,7 @@ function blockHtml() {
         css.addClassAttrById(`l${blockFragment.line}c${blockFragment.column}`, blockFragment.color);
     }
 
-    function add(block) {
+    function show(block) {
         block.forEach(function (p) { addFragment(p); });
     }
 
@@ -17,7 +17,7 @@ function blockHtml() {
     }
 
     return {
-        add,
+        show,
         remove
     }
 }

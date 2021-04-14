@@ -1,18 +1,14 @@
 
-import { blockArea, game, moveTo } from './config.js';
+import { game, moveTo } from './config.js';
 
 import areaHtml from './areaHtml.js';
-import blockHtml from './blockHtml.js';
 
 import blockModule from './blockModule.js';
 import observerModule from './observerModule.js';
 
 areaHtml.createAreaHtml();
 
-let randomBlock = blockModule.getRandomBlock();
-
-blockModule.add(randomBlock, 'tblock');
-blockHtml.add(blockArea[blockArea.length - 1]);
+blockModule.newBlock();
 
  function sleep(ms) {
      return new Promise(resolve => setTimeout(resolve, ms));
