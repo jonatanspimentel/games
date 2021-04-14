@@ -1,7 +1,7 @@
-import { attr, snakeLenght } from './config.js';
+import { attr, snakeLenght } from '../game/config.js';
 
-import css from './css.js';
-import snakeModule from './snakeModule.js';
+import css from '../css.js';
+import snakeModule from '../modules/snakeModule.js';
 
 
 function snakeHtml() {

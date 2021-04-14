@@ -1,4 +1,4 @@
-import { control } from './config.js';
+import { control } from '../game/config.js';
 
 function dataHtml() {
    

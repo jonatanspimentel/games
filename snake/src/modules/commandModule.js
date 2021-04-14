@@ -1,5 +1,5 @@
-import dataHtml from './dataHtml.js';
-import { config, control } from './config.js'
+import dataHtml from '../html/dataHtml.js';
+import { config, control } from '../game/config.js'
 
 function commandModule() {
 

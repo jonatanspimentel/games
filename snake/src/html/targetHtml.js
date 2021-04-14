@@ -1,5 +1,5 @@
-import { attr, target } from './config.js';
-import css from './css.js';
+import { attr, target } from '../game/config.js';
+import css from '../css.js';
 
 function targetHtml() {
 

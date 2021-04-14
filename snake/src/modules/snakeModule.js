@@ -1,4 +1,4 @@
-import { snakeLenght, config, control } from './config.js'
+import { snakeLenght, config, control } from '../game/config.js'
 
 function snakeModule () {
 

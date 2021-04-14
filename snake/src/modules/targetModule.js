@@ -1,4 +1,4 @@
-import { config, control, target } from './config.js'
+import { config, control, target } from '../game/config.js'
 
 function targetModule() {
 

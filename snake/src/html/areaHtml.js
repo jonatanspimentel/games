@@ -1,5 +1,5 @@
-import css from './css.js'; 
-import { config } from './config.js'
+import css from '../css.js'; 
+import { config } from '../game/config.js'
 
 function areaHtml() {
     

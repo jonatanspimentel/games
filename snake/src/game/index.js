@@ -1,6 +1,7 @@
-import commandModule from './commandModule.js'
-import game from './game.js'; 
 import { control } from './config.js';
+
+import commandModule from '../modules/commandModule.js'
+import game from './game.js'; 
 
 function createGame() {
     

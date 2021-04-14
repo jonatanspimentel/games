@@ -1,13 +1,13 @@
 import { config, control, target } from './config.js';
 
-import dataModule from './dataModule.js'; 
-import snakeModule from './snakeModule.js'
-import targetModule from './targetModule.js';
+import dataModule from '../modules/dataModule.js'; 
+import snakeModule from '../modules/snakeModule.js'
+import targetModule from '../modules/targetModule.js';
 
-import areaHtml from './areaHtml.js';
-import dataHtml from './dataHtml.js';
-import snakeHtml from './snakeHtml.js';
-import targetHtml from './targetHtml.js';
+import areaHtml from '../html/areaHtml.js';
+import dataHtml from '../html/dataHtml.js';
+import snakeHtml from '../html/snakeHtml.js';
+import targetHtml from '../html/targetHtml.js';
 
 
 function game() {
