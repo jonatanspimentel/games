@@ -1,0 +1,20 @@
+.black {
+    background-color: rgb(#000000); 
+ }
+ 
+.white {
+    background-color: rgb(#ffffff); 
+ }
+
+ div {
+     float: left;
+     width: 100px;
+     height: 100px;
+ }
+ 
+ .container {
+     border-style: solid;
+     border-color: black;
+     width: 800px;
+     height: 800px;
+ }
