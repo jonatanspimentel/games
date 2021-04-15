@@ -1,0 +1,68 @@
+import { config, control, target } from './config.js';
+
+import dataModule from '../modules/dataModule.js'; 
+import snakeModule from '../modules/snakeModule.js'
+import targetModule from '../modules/targetModule.js';
+
+import areaHtml from '../html/areaHtml.js';
+import dataHtml from '../html/dataHtml.js';
+import snakeHtml from '../html/snakeHtml.js';
+import targetHtml from '../html/targetHtml.js';
+
+
+function game() {
+
+    function walk() {
+        
+        snakeModule.addNextMove();
+        captureTarget();
+
+        let retorno = snakeModule.incorporate();
+        snakeHtml.refreshRouteHtml(retorno);
+        
+    }
+
+    function captureTarget() { 
+
+        let lastIndexSnake = snakeModule.getSnakeHead();
+
+        if (lastIndexSnake.line == target.line && lastIndexSnake.column == target.column) {
+            
+            targetModule.capture();
+            dataModule.addPoint();
+
+            dataHtml.addScoreHtml();
+            
+            targetHtml.removeTargetHtml();
+
+            targetModule.createTarget();
+            targetHtml.addTargetHtml();
+
+            snakeModule.acelerate();
+            dataHtml.addSpeedHtml();
+
+        }
+    }
+
+    function start() {
+        control.direction = config.key.ArrowDown;
+        control.status = config.status.Running;
+        snakeModule.createSnake();
+        targetModule.createTarget();
+    }
+
+    function startHtml() {
+        areaHtml.createAreaHtml();
+        snakeHtml.createSnakeHtml();
+        targetHtml.addTargetHtml();
+        dataHtml.addSpeedHtml();
+    }
+
+    return {
+        start,
+        startHtml,
+        walk
+    }
+}
+
+export default game();
