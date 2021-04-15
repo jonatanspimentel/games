@@ -1,5 +1,5 @@
 import dataHtml from '../html/dataHtml.js';
-import { config, control } from '../game/config.js'
+import { control, game } from '../game/config.js'
 
 function commandModule() {
 
@@ -7,27 +7,27 @@ function commandModule() {
         
         switch(command) {
 
-            case config.key.ArrowUp:
+            case control.ArrowUp:
                 walk2Up();
                 break;
 
-            case config.key.ArrowDown:
+            case control.ArrowDown:
                 walk2Down();
                 break;
     
-            case config.key.ArrowLeft:
+            case control.ArrowLeft:
                 walk2Left();
                 break;
     
-            case config.key.ArrowRight:
+            case control.ArrowRight:
                 walk2Right();
                 break;
     
-            case config.key.P:
+            case control.P:
                 pause();
                 break
     
-            case config.key.Escape:
+            case control.Escape:
                 end();
                 break
             
@@ -35,34 +35,34 @@ function commandModule() {
     }
 
     function walk2Up() {
-        if(control.direction !== config.key.ArrowDown)
-            control.direction = config.key.ArrowUp;
+        if(game.direction !== control.ArrowDown)
+            game.direction = control.ArrowUp;
     }
 
     function walk2Down() {
-        if(control.direction !== config.key.ArrowUp)
-            control.direction = config.key.ArrowDown;
+        if(game.direction !== control.ArrowUp)
+            game.direction = control.ArrowDown;
     }
 
     function walk2Left() {
-        if(control.direction !== config.key.ArrowRight)
-            control.direction = config.key.ArrowLeft;
+        if(game.direction !== control.ArrowRight)
+            game.direction = control.ArrowLeft;
     }
 
     function walk2Right() {
-        if(control.direction !== config.key.ArrowLeft)
-            control.direction = config.key.ArrowRight;
+        if(game.direction !== control.ArrowLeft)
+            game.direction = control.ArrowRight;
     }
 
     function pause() {
-        control.pause = !control.pause;
-        control.status = (control.pause) ? config.status.Paused : config.status.Running;
+        game.state.pause = !game.state.pause;
+        //control.status = (control.pause) ? config.status.Paused : config.status.Running;
         dataHtml.addStatusHtml();
     }
 
     function end() {
-        control.endGame = true;
-        control.status = config.status.EndGame;
+        game.state.endGame = true;
+        //control.status = config.status.EndGame;
         dataHtml.addStatusHtml();
     }
 

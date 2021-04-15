@@ -1,36 +1,35 @@
 export const config = {
     area: [],
     size: 40,
-    key: {
-        Escape: "Escape",
-        ArrowLeft: "ArrowLeft",
-        ArrowUp: "ArrowUp",
-        ArrowRight: "ArrowRight",
-        ArrowDown: "ArrowDown",
-        P: "p"
-    },
-    status: {
-        EndGame: "Fim de Jogo",
-        Paused: "Pausado",
-        Running: "Em execução"
-    },
     maxSpeed: 40
 };
 
-export const control = {
+export const game = {
     direction: undefined,
-    captured: [],
+    score: 0,
     speed: 350,
-    score: 0, 
-    status: undefined,
-    endGame: false,
-    pause: false
+    state: {
+        endGame: false,
+        pause: false
+    },
+    status: undefined
 }
+
+export const control = {
+    ArrowDown: "ArrowDown",
+    ArrowLeft: "ArrowLeft",
+    ArrowRight: "ArrowRight",
+    ArrowUp: "ArrowUp",
+    Escape: "Escape",
+    P: "p"
+}
+
+export const captured = [];
 
 export const attr = {
     class: {
         target: "target",
-        snake: "snake", 
+        snake: "snake",
     }
 }
 

@@ -1,20 +1,20 @@
-import { control } from '../game/config.js';
+import { game } from '../game/config.js';
 
 function dataHtml() {
    
     function addScoreHtml() {
         let scoreElement = document.getElementsByTagName("p")[0];
-        scoreElement.innerHTML = `Score: ${ control.score }`;
+        scoreElement.innerHTML = `Score: ${ game.score }`;
     }
 
     function addSpeedHtml() {
         let speedElement = document.getElementsByTagName("p")[1];
-        speedElement.innerHTML = `Speed: ${ control.speed } <i>(milliseconds)</i>`;
+        speedElement.innerHTML = `Speed: ${ game.speed } <i>(milliseconds)</i>`;
     }
 
     function addStatusHtml() {
         let statusElement = document.getElementsByTagName("p")[2];
-        statusElement.innerHTML = `${ control.status }`;
+        statusElement.innerHTML = `${ game.status }`;
     }
 
     return {

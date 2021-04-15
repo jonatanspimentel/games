@@ -1,9 +1,9 @@
-import { snakeLenght, config, control } from '../game/config.js'
+import { captured, config, control, game, snakeLenght } from '../game/config.js'
 
 function snakeModule () {
 
     function acelerate() {
-        control.speed = (control.speed > config.maxSpeed) ? (control.speed - 10) : control.speed;
+        game.speed = (game.speed > config.maxSpeed) ? (game.speed - 10) : game.speed;
     }
 
     function addNextMove() {
@@ -11,23 +11,23 @@ function snakeModule () {
         let snakeHead = getSnakeHead();
         let nextMove = { line: 0, column: 0 }
 
-        switch (control.direction) {
-            case config.key.ArrowDown:
+        switch (game.direction) {
+            case control.ArrowDown:
                 nextMove.line = snakeHead.line + 1;
                 nextMove.column = snakeHead.column;
             break;
 
-            case config.key.ArrowLeft:
+            case control.ArrowLeft:
                 nextMove.line = snakeHead.line;
                 nextMove.column = snakeHead.column - 1;
             break;
 
-            case config.key.ArrowRight:
+            case control.ArrowRight:
                 nextMove.line = snakeHead.line;
                 nextMove.column = snakeHead.column + 1;
             break;
             
-            case config.key.ArrowUp:
+            case control.ArrowUp:
                 nextMove.line = snakeHead.line - 1;
                 nextMove.column = snakeHead.column;
             break;                
@@ -42,8 +42,8 @@ function snakeModule () {
     }
 
     function incorporate() {
-        if (control.captured.length > 0 && control.captured[0].line == snakeLenght[0].line && control.captured[0].column == snakeLenght[0].column) {
-            control.captured.pop();
+        if (captured.length > 0 && captured[0].line == snakeLenght[0].line && captured[0].column == snakeLenght[0].column) {
+            captured.pop();
         } else {
             return removeLenght();
         }

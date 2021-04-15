@@ -1,4 +1,4 @@
-import { config, control, target } from './config.js';
+import { control, game, target } from './config.js';
 
 import dataModule from '../modules/dataModule.js'; 
 import snakeModule from '../modules/snakeModule.js'
@@ -10,7 +10,7 @@ import snakeHtml from '../html/snakeHtml.js';
 import targetHtml from '../html/targetHtml.js';
 
 
-function game() {
+function gameModule() {
 
     function walk() {
         
@@ -45,8 +45,7 @@ function game() {
     }
 
     function start() {
-        control.direction = config.key.ArrowDown;
-        control.status = config.status.Running;
+        game.direction = control.ArrowDown;
         snakeModule.createSnake();
         targetModule.createTarget();
     }
@@ -65,4 +64,4 @@ function game() {
     }
 }
 
-export default game();
+export default gameModule();

@@ -1,9 +1,9 @@
-import { control } from '../game/config.js';
+import { game } from '../game/config.js';
 
 function dataModule() {
 
     function addPoint() {
-        control.score++;
+        game.score++;
     }
 
     return {

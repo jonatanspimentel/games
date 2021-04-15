@@ -1,7 +1,7 @@
-import { control } from './config.js';
+import { game } from './config.js';
 
 import commandModule from '../modules/commandModule.js'
-import game from './game.js'; 
+import gameModule from './game.js'; 
 
 function createGame() {
     
@@ -46,17 +46,17 @@ function sleep(ms) {
   
 async function infinitLoop() {
 
-    while(!control.endGame) {
+    while(!game.state.endGame) {
         
-        await sleep(control.speed);
+        await sleep(game.speed);
         
-        if (!control.pause)
-            game.walk();
+        if (!game.state.pause)
+            gameModule.walk();
     }
 }
 
-game.start();
-game.startHtml();
+gameModule.start();
+gameModule.startHtml();
 
 const gamePromisse = createGame();
 const keyboardListener = createKeyboardListener();

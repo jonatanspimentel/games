@@ -1,4 +1,4 @@
-import { config, control, target } from '../game/config.js'
+import { config, captured, target } from '../game/config.js'
 
 function targetModule() {
 
@@ -9,7 +9,7 @@ function targetModule() {
             column: target.column
         }
 
-        control.captured.push(t);
+        captured.push(t);
     }
 
     function createTarget() {
