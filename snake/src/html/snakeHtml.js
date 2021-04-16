@@ -20,7 +20,7 @@ function snakeHtml() {
         if (removed !== undefined)
             refreshSnakeHtml(removed);
 
-        addNextMoveHtml(snakeModule.getSnakeHead());
+        addNextMoveHtml(snakeModule.getHead());
     }
 
     function refreshSnakeHtml(removed) {

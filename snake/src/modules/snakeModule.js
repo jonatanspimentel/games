@@ -6,9 +6,9 @@ function snakeModule () {
         game.speed = (game.speed > config.maxSpeed) ? (game.speed - 10) : game.speed;
     }
 
-    function addNextMove() {
+    function add() {
 
-        let snakeHead = getSnakeHead();
+        let snakeHead = getHead();
         let nextMove = { line: 0, column: 0 }
 
         switch (game.direction) {
@@ -36,7 +36,7 @@ function snakeModule () {
         increaseLenght(nextMove);
     }
 
-    function createSnake() {
+    function create() {
         increaseLenght({line: 10, column: 21});
         increaseLenght({line: 11, column: 21});
     }
@@ -45,7 +45,7 @@ function snakeModule () {
         if (captured.length > 0 && captured[0].line == snakeLenght[0].line && captured[0].column == snakeLenght[0].column) {
             captured.pop();
         } else {
-            return removeLenght();
+            return remove();
         }
     }
 
@@ -53,21 +53,21 @@ function snakeModule () {
         snakeLenght.push(nextMove);
     }
 
-    function removeLenght(){
+    function remove(){
         return snakeLenght.shift();
     }
 
-    function getSnakeHead() {
+    function getHead() {
         return snakeLenght[snakeLenght.length - 1];
     }
 
     return {
         acelerate,
-        addNextMove,
-        createSnake,
-        getSnakeHead,
+        add,
+        create,
+        getHead,
         incorporate,
-        removeLenght
+        remove
     }
 }
 

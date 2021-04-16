@@ -14,7 +14,7 @@ function gameModule() {
 
     function walk() {
         
-        snakeModule.addNextMove();
+        snakeModule.add();
         captureTarget();
 
         let retorno = snakeModule.incorporate();
@@ -24,7 +24,7 @@ function gameModule() {
 
     function captureTarget() { 
 
-        let lastIndexSnake = snakeModule.getSnakeHead();
+        let lastIndexSnake = snakeModule.getHead();
 
         if (lastIndexSnake.line == target.line && lastIndexSnake.column == target.column) {
             
@@ -46,7 +46,7 @@ function gameModule() {
 
     function start() {
         game.direction = control.ArrowDown;
-        snakeModule.createSnake();
+        snakeModule.create();
         targetModule.createTarget();
     }
 
