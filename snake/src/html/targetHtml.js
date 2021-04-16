@@ -3,17 +3,17 @@ import css from '../css.js';
 
 function targetHtml() {
 
-    function addTargetHtml() {
+    function add() {
         css.addClassAttrById(`l${target.line}c${target.column}`, attr.class.target);
     }
 
-    function removeTargetHtml() {
+    function remove() {
         css.removeClassAttrById(`l${target.line}c${target.column}`, attr.class.target);
     }
 
     return {
-        addTargetHtml,
-        removeTargetHtml
+        add,
+        remove
     }
 }
 
