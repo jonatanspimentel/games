@@ -8,7 +8,7 @@ function snakeModule () {
 
     function add() {
 
-        let snakeHead = getHead();
+        let snakeHead = getLast();
         let nextMove = { line: 0, column: 0 }
 
         switch (game.direction) {
@@ -57,7 +57,7 @@ function snakeModule () {
         return snakeLenght.shift();
     }
 
-    function getHead() {
+    function getLast() {
         return snakeLenght[snakeLenght.length - 1];
     }
 
@@ -65,7 +65,7 @@ function snakeModule () {
         acelerate,
         add,
         create,
-        getHead,
+        getLast,
         incorporate,
         remove
     }

@@ -6,29 +6,29 @@ import snakeModule from '../modules/snakeModule.js';
 
 function snakeHtml() {
 
-    function addNextMoveHtml(nextMove) {
+    function addMove(nextMove) {
         css.addClassAttrById(`l${nextMove.line}c${nextMove.column}`, attr.class.snake);
     }
 
-    function createSnakeHtml() {
+    function create() {
         snakeLenght.forEach(function (s) {
-            addNextMoveHtml(s);
+            addMove(s);
         });
     }
 
     function refreshRouteHtml(removed) {  
         if (removed !== undefined)
-            refreshSnakeHtml(removed);
+            remove(removed);
 
-        addNextMoveHtml(snakeModule.getHead());
+        addMove(snakeModule.getLast());
     }
 
-    function refreshSnakeHtml(removed) {
+    function remove(removed) {
         css.removeClassAttrById(`l${removed.line}c${removed.column}`, attr.class.snake);
     }
 
     return {
-        createSnakeHtml,
+        create,
         refreshRouteHtml
     }
 }
